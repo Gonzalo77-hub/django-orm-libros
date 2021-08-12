@@ -1,0 +1,194 @@
+gonza@LAPTOP-B0SE15A3 MINGW64 /d/Coding dojo/Django/django/django_ornm/book_authors_proj
+$ python manage.py shell
+Python 3.9.1 (tags/v3.9.1:1e5d33e, Dec  7 2020, 17:08:21) [MSC v.1927 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.26.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: from books_authors_app.models  import *
+
+In [2]: Book.objects.create(title="C Sharp", desc="Libro de programacion de C Sharp")
+Out[2]: <Book: Book object (1)>
+
+In [3]: Book.objects.create(title="Java", desc="Libro de programacion de Java")
+Out[3]: <Book: Book object (2)>
+
+In [4]: Book.objects.create(title="Python", desc="Libro de programacion de Python")
+Out[4]: <Book: Book object (3)>
+
+In [5]: Book.objects.create(title="PHP", desc="Libro de programacion de PHP")
+Out[5]: <Book: Book object (4)>
+
+In [6]: Book.objects.create(title="Ruby", desc="Libro de programacion de Ruby")
+Out[6]: <Book: Book object (5)>
+
+In [7]: Author.objects.create(firts_name="Jane", last_name="Austen")
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-7-05d93e82151b> in <module>
+----> 1 Author.objects.create(firts_name="Jane", last_name="Austen")
+
+D:\Coding dojo\Django\venvDjango\lib\site-packages\django\db\models\manager.py in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+D:\Coding dojo\Django\venvDjango\lib\site-packages\django\db\models\query.py in create(self, **kwargs)
+    449         and returning the created object.
+    450         """
+--> 451         obj = self.model(**kwargs)
+    452         self._for_write = True
+    453         obj.save(force_insert=True, using=self.db)
+
+D:\Coding dojo\Django\venvDjango\lib\site-packages\django\db\models\base.py in __init__(self, *args, **kwargs)
+    501                     pass
+    502             for kwarg in kwargs:
+--> 503                 raise TypeError("%s() got an unexpected keyword argument '%s'" % (cls.__name__, kwarg))
+    504         super().__init__()
+    505         post_init.send(sender=cls, instance=self)
+
+TypeError: Author() got an unexpected keyword argument 'firts_name'
+
+In [8]: Author.objects.create(first_name="Jane", last_name="Austen")
+Out[8]: Nombre: Jane Austen
+
+In [9]: Author.objects.create(first_name="Emily", last_name="Dickinson")
+Out[9]: Nombre: Emily Dickinson
+
+In [10]: Author.objects.create(first_name="Fyodor", last_name="Dostoevsky")
+Out[10]: Nombre: Fyodor Dostoevsky
+
+In [11]: Author.objects.create(first_name="William", last_name="Shakespeare")
+Out[11]: Nombre: William Shakespeare
+
+In [12]: Author.objects.create(first_name="Lau", last_name="Tzu")
+Out[12]: Nombre: Lau Tzu
+
+In [13]: exit()
+(venvDjango) 
+gonza@LAPTOP-B0SE15A3 MINGW64 /d/Coding dojo/Django/django/django_ornm/book_authors_proj
+$ python manage.py makemigrations
+Migrations for 'books_authors_app':
+  books_authors_app\migrations\0002_author_notas.py
+    - Add field notas to author
+(venvDjango) 
+gonza@LAPTOP-B0SE15A3 MINGW64 /d/Coding dojo/Django/django/django_ornm/book_authors_proj
+$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, books_authors_app, contenttypes, sessions
+Running migrations:
+  Applying books_authors_app.0002_author_notas... OK
+(venvDjango) 
+gonza@LAPTOP-B0SE15A3 MINGW64 /d/Coding dojo/Django/django/django_ornm/book_authors_proj
+$ python manage.py shell
+Python 3.9.1 (tags/v3.9.1:1e5d33e, Dec  7 2020, 17:08:21) [MSC v.1927 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.26.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: Actualizar_1 = Book.objects.get(id=1)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-1-ad99bae9342e> in <module>
+----> 1 Actualizar_1 = Book.objects.get(id=1)
+
+NameError: name 'Book' is not defined
+
+In [2]: from books_authors_app.models  import *
+
+In [3]: Actualizar_1 = Book.objects.get(id=1)
+
+In [4]: Actualizar_1.title= "C #"
+
+In [5]: Actualizar_1.save()
+
+In [6]: Actualizar_2 = Author.objects.get(id=4)
+
+In [7]: Actualizar_2.first_name = "Bill"
+
+In [8]: Actualizar_2.save()
+
+In [9]: Book_1 = Book.objects.get(id=1)
+
+In [10]: Book_2 = Book.objects.get(id=2)
+
+In [11]: Autor_1 = Author.objects.get(id=1)
+
+In [12]: Autor_1.Books.add(Book_1)
+
+In [13]: Autor_1.Books.add(Book_1)
+
+In [14]: Autor_1.Books.add(Book_2)
+
+In [15]: Book_3 = Book.objects.get(id=3)
+
+In [16]: Autor_2 = Author.objects.get(id=2)
+
+In [17]: Autor_2.Books.add(Book_1)
+
+In [18]: Autor_2.Books.add(Book_2)
+
+In [19]: Autor_2.Books.add(Book_3)
+
+In [20]: Book_4 = Book.objects.get(id=4)
+
+In [21]: Autor_3 = Author.objects.get(id=3)
+
+In [22]: Autor_3.Books.add(Book_1)
+
+In [23]: Autor_3.Books.add(Book_2)
+
+In [24]: Autor_3.Books.add(Book_3)
+
+In [25]: Autor_3.Books.add(Book_4)
+
+In [26]: Autor_4 = Author.objects.get(id=4)
+
+In [27]: Book_5 = Book.objects.get(id=5)
+
+In [28]: Autor_4.Books.add(Book_1)
+
+In [29]: Autor_4.Books.add(Book_2)
+
+In [30]: Autor_4.Books.add(Book_3)
+
+In [31]: Autor_4.Books.add(Book_4)
+
+In [32]: Autor_4.Books.add(Book_5)
+
+In [33]: book_autores = Book.objects.get(id=3)
+
+In [34]: book_autores.Books.all()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-34-29c19a597444> in <module>
+----> 1 book_autores.Books.all()
+
+AttributeError: 'Book' object has no attribute 'Books'
+
+In [35]: book_autores.Autores.all()
+Out[35]: <QuerySet [Nombre: Emily Dickinson, Nombre: Fyodor Dostoevsky, Nombre: Bill Shakespeare]>
+
+In [36]: book_3 = Book.objects.get(id=3)
+
+In [37]: autor_1 =Author.objects.get(id=1)
+
+In [38]: book_3.Autores.remove(autor_1)
+
+In [39]: autor_5 =Author.objects.get(id=5)
+
+In [40]: book_2 = Book.objects.get(id=2)
+
+In [41]: autor_5.Books.add(book_2)
+
+In [42]: autor_5 = Author.objects.get(id=3)
+
+In [43]: autor_5.Books.all()
+Out[43]: <QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>]>
+
+In [44]: book_5 = Book.objects.get(id=5)
+
+In [45]: book_5.Autores.all()
+Out[45]: <QuerySet [Nombre: Bill Shakespeare]>
+
+In [46]: 
